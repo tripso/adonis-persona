@@ -186,7 +186,7 @@ class Persona {
       return row.token
     }
 
-    const token = this._encrypter.encrypt(randtoken.generate(16))
+    const token = randtoken.generate(4, '0-9')
     await user.tokens().create({ type, token })
     return token
   }
@@ -559,8 +559,8 @@ class Persona {
      */
     if (user.account_status === this.config.newAccountState) {
       user.account_status = this.config.verifiedAccountState
+      this.removeToken(token, 'email')
       await user.save()
-      await this.removeToken(token, 'email')
     }
 
     return user
