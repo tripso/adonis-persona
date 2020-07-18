@@ -186,7 +186,8 @@ class Persona {
       return row.token
     }
 
-    const token = randtoken.generate(4, '0123456789')
+    const token = user.id + '__' + randtoken.generate(4, '0123456789')
+    
     await user.tokens().create({ type, token })
     return token
   }
